@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+require_relative "../config/boot"
+
+Sender::Watcher.start!(
+  Config.get!(:sender_payload_path),
+  Config.get!(:sender_source_folder),
+  Config.get!(:sender_send_folder),
+)
+
+sleep

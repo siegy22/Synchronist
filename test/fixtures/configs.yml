@@ -1,3 +1,7 @@
+mode:
+  name: mode
+  value:
+
 sender_payload_path:
   name: sender_payload_path
   value: "<%= Rails.root.join('test/fixtures/data/sender/payload.synchronist') %>"

@@ -16,7 +16,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_26_132418) do
 
   create_table "configs", force: :cascade do |t|
     t.string "name", null: false
-    t.string "value", null: false
+    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_configs_on_name", unique: true

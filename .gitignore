@@ -34,3 +34,7 @@
 !/app/assets/builds/.keep
 
 payload.synchronist
+
+/node_modules
+
+.DS_Store

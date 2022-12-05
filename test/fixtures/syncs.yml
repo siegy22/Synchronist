@@ -1,0 +1,11 @@
+one:
+  progress: 1.5
+  bytes_transferred: 100
+  started_at: 2022-12-05 21:34:08
+  finished_at: 2022-12-05 21:34:08
+
+two:
+  progress: 1.5
+  bytes_transferred: 140
+  started_at: 2022-12-05 21:34:08
+  finished_at: 2022-12-05 21:34:08

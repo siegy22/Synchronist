@@ -17,18 +17,35 @@ module Sender
   class ProcessPayloadJob < ApplicationJob
     queue_as :default
 
-    def perform(payload_io, source_path, target_path)
+    PAYLOAD_LOAD_PROGRESS = 10.0
+    DIFF_PROGRESS = 40.0
+    COPYING_PROGRESS = 50.0
+
+    def perform(payload_io, source_path, target_path, sync = Sync.create)
+      sync.start
+
       payload = Payload.load(payload_io)
+      sync.increment(:progress, PAYLOAD_LOAD_PROGRESS)
+
       Dir.chdir(source_path) do
-        files_to_copy = Dir.glob("**/*").select(&File.method(:file?)).each_with_object([]) do |file, memo|
+        source_files = Dir.glob("**/*").select(&File.method(:file?))
+        source_files_count = source_files.count
+        files_to_copy = source_files.each_with_object([]) do |file, memo|
+          sync.increment(:progress, (1.0 / source_files_count * DIFF_PROGRESS))
           memo << file unless payload.include?([file, File.mtime(file).utc.to_s])
           memo
         end
 
-        IO.popen(["rsync", "-RhvPt", *files_to_copy, target_path.to_s]) do |io|
-          Rails.logger.info(io.gets)
+        files_to_copy_count = files_to_copy.count
+        files_to_copy.each do |file|
+          `rsync -Rt #{file} #{target_path}`
+          sync.increment(:bytes_transferred, File.size(file))
+
+          sync.increment(:progress, (1.0 / files_to_copy_count * COPYING_PROGRESS))
         end
       end
+
+      sync.finish
     end
   end
 end

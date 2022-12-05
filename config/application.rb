@@ -11,6 +11,12 @@ module Synchronist
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    config.active_job.queue_adapter = :sidekiq
+    config.action_mailer.deliver_later_queue_name = nil
+    config.action_mailbox.queues.routing    = nil
+    config.active_storage.queues.analysis   = nil
+    config.active_storage.queues.purge      = nil
+    config.active_storage.queues.mirror     = nil
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

@@ -1,0 +1,29 @@
+
+services:
+  synchronist:
+    image: siegy22/synchronist
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://test:test@postgres/sync
+      REDIS_URL: redis://redis:6379/1
+    ports:
+      - 3000:3000
+  synchronist-worker:
+    image: siegy22/synchronist
+    command: bundle exec sidekiq
+    depends_on:
+      - redis
+      - postgres
+    environment:
+      DATABASE_URL: postgresql://test:test@postgres/sync
+      REDIS_URL: redis://redis:6379/1
+  redis:
+    image: redis
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: sync

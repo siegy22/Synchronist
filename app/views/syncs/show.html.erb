@@ -1,0 +1,5 @@
+<% content_for :title, "Synchronization ##{@sync.id}" %>
+
+<%= turbo_stream_from "sync_detail_#{@sync.id}" unless @sync.finished? %>
+
+<%= render "syncs/sync_detail", sync: @sync %>

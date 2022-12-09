@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_212432) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_08_210023) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_212432) do
     t.index ["name"], name: "index_configs_on_name", unique: true
   end
 
+  create_table "sent_files", force: :cascade do |t|
+    t.string "path", null: false
+    t.integer "size", default: 0
+    t.bigint "sync_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sync_id"], name: "index_sent_files_on_sync_id"
+  end
+
   create_table "sync_files", force: :cascade do |t|
     t.string "path"
     t.datetime "mtime"
@@ -60,12 +69,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_212432) do
   create_table "syncs", force: :cascade do |t|
     t.float "progress", default: 0.0
     t.integer "bytes_transferred", default: 0
-    t.datetime "started_at", default: -> { "now()" }
-    t.datetime "finished_at", default: -> { "now()" }
+    t.datetime "started_at"
+    t.datetime "finished_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "errored_at"
+    t.string "error_message"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "sent_files", "syncs"
 end

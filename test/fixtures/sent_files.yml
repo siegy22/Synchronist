@@ -1,0 +1,19 @@
+done_one_txt:
+  sync: done
+  path: 1.txt
+  size: 20
+
+done_two_txt:
+  sync: done
+  path: 2.txt
+  size: 40
+
+pending_sample_zip:
+  sync: pending
+  path: sample.zip
+  size: 12032
+
+errored_docker-nginx_tar:
+  sync: errored
+  path: docker-nginx.tar
+  size: 120_000_000

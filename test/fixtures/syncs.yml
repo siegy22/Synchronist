@@ -1,11 +1,48 @@
-one:
-  progress: 1.5
-  bytes_transferred: 100
-  started_at: 2022-12-05 21:34:08
-  finished_at: 2022-12-05 21:34:08
+pending:
+  progress: 55.6
+  bytes_transferred: 12032
+  started_at: 2023-01-01 00:00:00
 
-two:
-  progress: 1.5
-  bytes_transferred: 140
-  started_at: 2022-12-05 21:34:08
-  finished_at: 2022-12-05 21:34:08
+done:
+  progress: 100
+  bytes_transferred: 60
+  started_at: 2022-02-01 00:00:00
+  finished_at: 2022-02-01 00:00:01
+
+errored:
+  progress: 76
+  bytes_transferred: 120_000_000
+  started_at: 2022-01-01 00:00:00
+  errored_at: 2022-01-01 01:01:00
+  error_message: |
+    /Users/siegy/.rbenv/versions/3.1.2/lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/buffer.rb:317:in `set_key': rsa#set_key= is incompatible with OpenSSL 3.0 (OpenSSL::PKey::PKeyError)
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/buffer.rb:317:in `read_keyblob'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/buffer.rb:249:in `read_key'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:154:in `block (2 levels) in keys_for'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:134:in `each_line'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:134:in `block in keys_for'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:132:in `open'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:132:in `keys_for'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:64:in `block in search_in'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:64:in `each'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:64:in `flat_map'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:64:in `search_in'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/known_hosts.rb:58:in `search_for'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/transport/session.rb:98:in `host_keys'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/transport/algorithms.rb:257:in `prepare_preferred_algorithms!'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/transport/algorithms.rb:137:in `initialize'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/transport/session.rb:88:in `new'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/transport/session.rb:88:in `initialize'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh.rb:246:in `new'
+    from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh.rb:246:in `start'
+    from /lib/ruby/gems/3.1.0/gems/git-deploy-0.7.0/lib/git_deploy/ssh_methods.rb:96:in `ssh_connection'
+    from /lib/ruby/gems/3.1.0/gems/git-deploy-0.7.0/lib/git_deploy/ssh_methods.rb:43:in `ssh_exec'
+    from /lib/ruby/gems/3.1.0/gems/git-deploy-0.7.0/lib/git_deploy/ssh_methods.rb:23:in `run'
+    from /lib/ruby/gems/3.1.0/gems/git-deploy-0.7.0/lib/git_deploy.rb:63:in `rerun'
+    from /lib/ruby/gems/3.1.0/gems/thor-0.14.6/lib/thor/task.rb:22:in `run'
+    from /lib/ruby/gems/3.1.0/gems/thor-0.14.6/lib/thor/invocation.rb:118:in `invoke_task'
+    from /lib/ruby/gems/3.1.0/gems/thor-0.14.6/lib/thor.rb:263:in `dispatch'
+    from /lib/ruby/gems/3.1.0/gems/thor-0.14.6/lib/thor/base.rb:389:in `start'
+    from /lib/ruby/gems/3.1.0/gems/git-deploy-0.7.0/bin/git-deploy:3:in `<top (required)>'
+    from /bin/git-deploy:25:in `load'
+    from /bin/git-deploy:25:in `<main>'

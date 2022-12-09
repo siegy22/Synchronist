@@ -1,0 +1,48 @@
+<%= content_tag :div, id: dom_id(sync) do %>
+  <%= sync_progress_bar(sync) %>
+  <div class="row mt-2">
+    <div class="started-at">
+      <b>Started at:</b>
+      <%= time_tag sync.created_at, title: sync.created_at do %>
+        <%= I18n.l sync.started_at, format: :long %>
+      <% end %>
+    </div>
+    <% if sync.finished_at %>
+      <div class="finished-at">
+        <b>Finished at:</b> <%= I18n.l sync.finished_at, format: :long %>
+      </div>
+    <% end %>
+    <% if sync.errored_at %>
+      <div class="errored-at">
+        <b>Errored at:</b> <%= I18n.l sync.errored_at, format: :long %>
+      </div>
+    <% end %>
+  </div>
+
+  <% if sync.errored? %>
+    <h4 class="mt-3">
+      Error
+    </h4>
+    <div class="alert alert-danger p-2" role="alert">
+      <pre class="m-0"><code><%= sync.error_message %></code></pre>
+    </div>
+  <% end %>
+
+  <h4 class="mt-3">
+    <%= pluralize(sync.sent_files.count, "file") %> transferred
+    <span class="h6 text-muted"><%= number_to_human_size(sync.bytes_transferred) %></span>
+  </h4>
+
+  <ul class="list-group file-list">
+    <% sync.sent_files.ordered.each do |sent_file| %>
+      <li class="list-group-item d-flex align-items-center">
+        <div class="filename" title="<%= sent_file.path %>">
+          <%= sent_file.path %>
+        </div>
+        <div class="ms-auto filesize">
+          <b><%= number_to_human_size(sent_file.size) %></b>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

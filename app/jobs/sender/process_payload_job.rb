@@ -22,7 +22,7 @@ module Sender
     COPYING_PROGRESS = 50.0
 
     def perform(payload_io, source_path, target_path, sync = Sync.create)
-      sync.start
+      sync.start!
 
       payload = Payload.load(payload_io)
       sync.increment(:progress, PAYLOAD_LOAD_PROGRESS)
@@ -39,13 +39,18 @@ module Sender
         files_to_copy_count = files_to_copy.count
         files_to_copy.each do |file|
           `rsync -Rt #{file} #{target_path}`
-          sync.increment(:bytes_transferred, File.size(file))
+          file_size = File.size(file)
+          sync.increment(:bytes_transferred, file_size)
 
           sync.increment(:progress, (1.0 / files_to_copy_count * COPYING_PROGRESS))
+          sync.sent_files.create(path: file, size: file_size)
         end
       end
 
-      sync.finish
+      sync.finish!
+    rescue StandardError => e
+      sync.update(errored_at: Time.now, error_message: e.message)
+      raise e
     end
   end
 end

@@ -1,0 +1,15 @@
+.status-icon {
+  width: 64px;
+  height: 64px;
+
+  i.bi::before {
+    vertical-align: 0px !important;
+  }
+}
+
+.filename {
+  white-space: nowrap;
+  max-width: 88%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

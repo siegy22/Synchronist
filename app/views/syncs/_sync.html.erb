@@ -1,0 +1,43 @@
+<%= turbo_stream_from(sync) unless sync.finished? %>
+
+<li class="list-group-item p-3 d-flex align-items-center" id="<%= dom_id(sync) %>">
+  <% if sync.errored? %>
+    <div class="status-icon text-center text-danger">
+      <i class="bi bi-exclamation" style="font-size: 3em"></i>
+    </div>
+  <% elsif sync.succeeded? %>
+    <div class="status-icon text-center text-success">
+      <i class="bi bi-check2" style="font-size: 3em"></i>
+    </div>
+  <% else %>
+    <div class="pie-wrapper progress-<%= sync.progress.round %> style-2">
+      <span class="label">
+        <%= sync.progress.round %><span class="smaller">%</span>
+      </span>
+      <div class="pie">
+        <div class="left-side half-circle"></div>
+        <div class="right-side half-circle"></div>
+      </div>
+      <div class="pie-shadow"></div>
+    </div>
+  <% end %>
+  <h4 class="m-0 ml-3">
+    <%= link_to sync do %>
+    #<%= sync.id %>
+    <% end %>
+  </h4>
+  <span class="ml-4">
+    <b>
+      <%= pluralize(sync.sent_files.count, "files") %> (<%= number_to_human_size(sync.bytes_transferred) %>)
+    </b>
+  </span>
+  <span class="ms-auto">
+    <% if sync.finished? && !sync.errored? %>
+      Took <%= distance_of_time_in_words sync.started_at, sync.finished_at, include_seconds: true %>
+    <% else %>
+      <%= time_tag sync.created_at, title: sync.created_at do %>
+        Started <%= time_ago_in_words sync.created_at %> ago
+      <% end %>
+    <% end %>
+  </span>
+</li>

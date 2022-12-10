@@ -2,8 +2,8 @@ class Sync < ApplicationRecord
   after_update_commit -> { broadcast_replace_later_to "sync_detail_#{id}", partial: "syncs/sync_detail" }
   broadcasts inserts_by: :prepend
 
-  has_one_attached :payload
   has_many :sent_files
+  belongs_to :sender_payload, class_name: "Sender::Payload"
 
   scope :ordered, -> { order(created_at: :desc) }
 

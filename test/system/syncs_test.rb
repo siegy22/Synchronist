@@ -5,7 +5,7 @@ class SyncsTest < ApplicationSystemTestCase
     visit syncs_path
     click_on syncs(:pending).id.to_s
     assert_equal "56%", find(".progress-bar").text
-    assert_equal "Started at: January 01, 2023 01:00", find(".started-at").text
+    assert_equal "Started at: December 01, 2022 01:00", find(".started-at").text
     assert_file_list(
       [
         ["sample.zip", "11.8 KB"]

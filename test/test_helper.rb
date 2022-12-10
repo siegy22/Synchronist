@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "sidekiq/testing"
 
 class ActiveSupport::TestCase
   # Disable parallel tests because they're mostly based on files

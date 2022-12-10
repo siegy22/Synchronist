@@ -3,7 +3,7 @@ class CreateSentFiles < ActiveRecord::Migration[7.0]
     create_table :sent_files do |t|
       t.string :path, null: false
       t.integer :size, default: 0
-      t.belongs_to :sync, foreign_key: true
+      t.belongs_to :sync, foreign_key: { force: :cascade }, null: false
 
       t.timestamps
     end

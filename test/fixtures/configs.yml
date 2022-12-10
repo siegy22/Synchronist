@@ -1,6 +1,6 @@
 mode:
   name: mode
-  value:
+  value: sender
 
 sender_payload_path:
   name: sender_payload_path

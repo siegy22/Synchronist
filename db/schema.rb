@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_190150) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_015330) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_190150) do
 
   create_table "sender_payloads", id: :string, force: :cascade do |t|
     t.datetime "received_at", null: false
+    t.datetime "mtime", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,17 +66,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_190150) do
   create_table "sent_files", force: :cascade do |t|
     t.string "path", null: false
     t.integer "size", default: 0
-    t.bigint "sync_id"
+    t.bigint "sync_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["sync_id"], name: "index_sent_files_on_sync_id"
-  end
-
-  create_table "sync_files", force: :cascade do |t|
-    t.string "path"
-    t.datetime "mtime"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "syncs", force: :cascade do |t|
@@ -87,9 +81,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_190150) do
     t.datetime "updated_at", null: false
     t.datetime "errored_at"
     t.string "error_message"
+    t.string "sender_payload_id", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "sent_files", "syncs"
+  add_foreign_key "syncs", "sender_payloads"
 end

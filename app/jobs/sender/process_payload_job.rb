@@ -21,10 +21,10 @@ module Sender
     DIFF_PROGRESS = 40.0
     COPYING_PROGRESS = 50.0
 
-    def perform(payload_io, source_path, target_path, sync = Sync.create)
+    def perform(sync, source_path, target_path)
       sync.start!
 
-      payload = Payload.load(payload_io)
+      loaded_payload = sync.sender_payload.load
       sync.increment(:progress, PAYLOAD_LOAD_PROGRESS)
 
       Dir.chdir(source_path) do
@@ -32,7 +32,7 @@ module Sender
         source_files_count = source_files.count
         files_to_copy = source_files.each_with_object([]) do |file, memo|
           sync.increment(:progress, (1.0 / source_files_count * DIFF_PROGRESS))
-          memo << file unless payload.include?([file, File.mtime(file).utc.to_s])
+          memo << file unless loaded_payload.include?([file, File.mtime(file).utc.to_s])
           memo
         end
 

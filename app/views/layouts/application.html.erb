@@ -54,7 +54,10 @@
 
           <%= nav_link Config.receiver? ? receiver_payloads_path : sender_payloads_path do %>
             <i class="bi bi-<%= Config.receiver? ? "send" : "inbox" %>"></i>
-            <span>Payloads</span>
+            <span>
+              Payloads
+              <%= Config.receiver? ? "sent" : "received" %>
+            </span>
           <% end %>
 
           <%= nav_link edit_config_path do %>

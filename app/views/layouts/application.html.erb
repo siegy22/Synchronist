@@ -19,59 +19,61 @@
       <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <%= link_to Config.configured? ? root_path : "#", class: "sidebar-brand d-flex align-items-center justify-content-center" do %>
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="bi bi-arrow-repeat"></i>
           </div>
           <div class="sidebar-brand-text mx-2">Synchronist</div>
-        </a>
-
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
-
-        <!-- Nav Item - Dashboard -->
-
-        <%= nav_link root_path do %>
-          <i class="bi bi-card-heading"></i>
-          <span>Dashboard</span>
         <% end %>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+        <% if Config.configured? %>
+          <!-- Divider -->
+          <hr class="sidebar-divider my-0">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Synchronization
-        </div>
+          <!-- Nav Item - Dashboard -->
 
-        <%= nav_link syncs_path do %>
-          <i class="bi bi-list"></i>
-          <span>Synchronizations</span>
-        <% end %>
+          <%= nav_link root_path do %>
+            <i class="bi bi-card-heading"></i>
+            <span>Dashboard</span>
+          <% end %>
 
-        <%= nav_link edit_config_path do %>
-          <i class="bi bi-wrench"></i>
-          <span>Configuration</span>
-        <% end %>
+          <!-- Divider -->
+          <hr class="sidebar-divider">
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            Synchronization
+          </div>
 
-        <!-- Heading -->
-        <div class="sidebar-heading">
-          Debug
-        </div>
+          <% if Config.sender? %>
+            <%= nav_link syncs_path do %>
+              <i class="bi bi-list"></i>
+              <span>Synchronizations</span>
+            <% end %>
+          <% end %>
 
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <i class="bi bi-file-binary"></i>
+          <%= nav_link Config.receiver? ? receiver_payloads_path : sender_payloads_path do %>
+            <i class="bi bi-<%= Config.receiver? ? "send" : "inbox" %>"></i>
             <span>Payloads</span>
-          </a>
-        </li>
+          <% end %>
 
-        <%= nav_link sidekiq_path do %>
-          <i class="bi bi-speedometer"></i>
-          <span>Sidekiq</span>
+          <%= nav_link edit_config_path do %>
+            <i class="bi bi-wrench"></i>
+            <span>Configuration</span>
+          <% end %>
+
+          <!-- Divider -->
+          <hr class="sidebar-divider">
+
+          <!-- Heading -->
+          <div class="sidebar-heading">
+            Debug
+          </div>
+
+          <%= nav_link sidekiq_path do %>
+            <i class="bi bi-speedometer"></i>
+            <span>Sidekiq</span>
+          <% end %>
         <% end %>
       </ul>
       <!-- End of Sidebar -->
@@ -126,13 +128,23 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
 
+            <% if flash.key?(:alert) %>
+              <div class="alert alert-warning" role="alert">
+                <%= flash[:alert] %>
+              </div>
+            <% end %>
+            <% if flash.key?(:notice) %>
+              <div class="alert alert-info" role="alert">
+                <%= flash[:notice] %>
+              </div>
+            <% end %>
+
             <!-- Page Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 class="h3 mb-0 text-gray-800">
                 <%= yield :title %>
               </h1>
             </div>
-
 
             <%= yield %>
 

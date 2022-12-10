@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_08_210023) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_190150) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_210023) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_configs_on_name", unique: true
+  end
+
+  create_table "receiver_payloads", id: :string, force: :cascade do |t|
+    t.datetime "sent_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "sender_payloads", id: :string, force: :cascade do |t|
+    t.datetime "received_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sent_files", force: :cascade do |t|

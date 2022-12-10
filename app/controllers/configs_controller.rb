@@ -1,4 +1,6 @@
 class ConfigsController < ApplicationController
+  skip_before_action :check_configuration
+
   def edit
     @config_form = ConfigForm.current
   end

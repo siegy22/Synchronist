@@ -36,6 +36,8 @@ class Sender::CheckPayloadPathJobTest < ActiveSupport::TestCase
     Sync.delete_all
     Sender::Payload.delete_all
 
-    Sender::CheckPayloadPathJob.perform_now
+    assert_enqueued_with(job: Sender::ProcessPayloadJob) do
+      Sender::CheckPayloadPathJob.perform_now
+    end
   end
 end

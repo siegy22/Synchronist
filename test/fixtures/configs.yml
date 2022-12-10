@@ -14,6 +14,10 @@ sender_send_folder:
   name: sender_send_folder
   value: "<%= Rails.root.join('test/fixtures/data/sender/send') %>"
 
+receiver_send_payload_cron:
+  name: receiver_send_payload_cron
+  value: "* * * * *"
+
 receiver_payload_path:
   name: receiver_payload_path
   value: "<%= Rails.root.join('test/fixtures/data/receiver/payload.synchronist') %>"

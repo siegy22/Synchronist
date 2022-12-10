@@ -13,6 +13,7 @@
     <% end %>
 
     <%= content_tag :div, id: "receiver-fields", class: @config_form.mode != "receiver" ? "d-none" : "", style: "max-width: 500px", data: { 'config-target': 'receiver' } do %>
+      <%= f.text_field :receiver_send_payload_cron, label: "Synchronization cron", help: 'How often should the receiver send a payload to the sender. <br/ >See <a href="https://crontab.guru" target="_blank">crontab guru</a> for reference'.html_safe, autocomplete: :off  %>
       <%= f.text_field :receiver_payload_path, label: "Payload Path", placeholder: "/mnt/outgoing-to-sender/payload.synchronist", autocomplete: :off  %>
       <%= f.text_field :receiver_storage_folder, label: "Storage Folder", placeholder: "/data/storage", autocomplete: :off  %>
       <%= f.text_field :receiver_receive_folder, label: "Receive Folder", placeholder: "/mnt/share/receive", autocomplete: :off %>

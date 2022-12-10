@@ -19,11 +19,15 @@ class ConfigTest < ApplicationSystemTestCase
   test "setup receiver application" do
     visit edit_config_path
     choose "Receiver"
+    fill_in "Synchronization cron", with: "0 */12 * * *"
     fill_in "Payload Path", with: "/mnt/smb/to-sender/payload.sync"
     fill_in "Storage Folder", with: "/data/mirrors/apt-mirror"
     fill_in "Receive Folder", with: "/mnt/smb/from-sender"
 
-    click_on "Save"
+    assert_difference -> { Sidekiq::Cron::Job.count }, +1 do
+      click_on "Save"
+      sleep 1
+    end
 
     assert_equal("receiver", Config.get!("mode"))
     assert_equal("/mnt/smb/to-sender/payload.sync", Config.get!("receiver_payload_path").to_s)

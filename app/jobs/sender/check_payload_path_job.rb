@@ -2,7 +2,7 @@ module Sender
   class CheckPayloadPathJob < ApplicationJob
     def perform
       if File.file?(payload_path) && (
-           Sender::Payload.exists? && File.mtime(payload_path) > Sender::Payload.ordered.first.mtime
+           Sender::Payload.exists? ? File.mtime(payload_path) > Sender::Payload.ordered.first.mtime : true
          )
         Sender::ProcessPayloadJob.perform_later(
           Sender::Payload.receive!(payload_path),

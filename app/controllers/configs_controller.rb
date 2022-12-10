@@ -8,7 +8,7 @@ class ConfigsController < ApplicationController
   def update
     @config_form = ConfigForm.new(config_params)
     if @config_form.save
-      redirect_to root_path
+      redirect_to root_path, notice: "Configuration saved!"
     else
       render 'configs/edit'
     end
@@ -16,14 +16,6 @@ class ConfigsController < ApplicationController
 
   private
   def config_params
-    params.require(:config_form).permit(
-      :mode,
-      :sender_payload_path,
-      :sender_source_folder,
-      :sender_send_folder,
-      :receiver_payload_path,
-      :receiver_storage_folder,
-      :receiver_receive_folder
-    )
+    params.require(:config_form).permit(*Config::CONFIGS)
   end
 end

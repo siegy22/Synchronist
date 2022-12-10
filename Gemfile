@@ -51,6 +51,8 @@ gem "bootsnap", require: false
 gem "cssbundling-rails"
 gem "bootstrap_form"
 gem "sidekiq"
+gem "sidekiq-cron"
+gem "fugit"
 gem "rails-i18n"
 
 group :development, :test do

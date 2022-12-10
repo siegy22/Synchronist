@@ -50,7 +50,6 @@ gem "bootsnap", require: false
 
 gem "cssbundling-rails"
 gem "bootstrap_form"
-gem "listen"
 gem "sidekiq"
 gem "rails-i18n"
 

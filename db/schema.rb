@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_10_225651) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_11_165151) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,7 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_225651) do
 
   create_table "syncs", force: :cascade do |t|
     t.float "progress", default: 0.0
-    t.integer "bytes_transferred", default: 0
+    t.bigint "bytes_transferred", default: 0
     t.datetime "started_at"
     t.datetime "finished_at"
     t.datetime "created_at", null: false

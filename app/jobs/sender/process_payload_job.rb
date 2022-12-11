@@ -26,12 +26,14 @@ module Sender
 
       loaded_payload = sync.sender_payload.load
       sync.increment(:progress, PAYLOAD_LOAD_PROGRESS)
+      sync.save
 
       Dir.chdir(source_path) do
         source_files = Dir.glob("**/*").select(&File.method(:file?))
         source_files_count = source_files.count
         files_to_copy = source_files.each_with_object([]) do |file, memo|
           sync.increment(:progress, (1.0 / source_files_count * DIFF_PROGRESS))
+          sync.save
           memo << file unless loaded_payload.include?([file, File.mtime(file).utc.to_s])
           memo
         end
@@ -44,12 +46,13 @@ module Sender
 
           sync.increment(:progress, (1.0 / files_to_copy_count * COPYING_PROGRESS))
           sync.sent_files.create(path: file, size: file_size)
+          sync.save
         end
       end
 
       sync.finish!
     rescue StandardError => e
-      sync.update(errored_at: Time.now, error_message: e.message)
+      sync.update(errored_at: Time.now, error_message: e.full_message)
       raise e
     end
   end

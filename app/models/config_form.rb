@@ -26,10 +26,10 @@ class ConfigForm
 
       Sidekiq::Cron::Job.destroy_all!
       if Config.configured? && mode == "sender"
-        Sidekiq::Cron::Job.create(name: "Sender: Check payload ", cron: ENV.fetch("SYNCHRONIST_CHECK_PAYLOAD_CRON", "* * * * *"), class: 'CheckPayloadPathJob')
+        Sidekiq::Cron::Job.create(name: "Sender: Check payload ", cron: ENV.fetch("SYNCHRONIST_CHECK_PAYLOAD_CRON", "* * * * *"), class: Sender::CheckPayloadPathJob.to_s)
       elsif Config.configured? && mode == "receiver"
-        Sidekiq::Cron::Job.create(name: "Receiver: Generate and send payload of current storage folder", cron: receiver_send_payload_cron, class: 'SendPayloadJob')
-        Sidekiq::Cron::Job.create(name: "Receiver: Check for received files and put them into storage folder", cron: ENV.fetch("SYNCHRONIST_CHECK_RECEIVED_FILES_CRON", "* * * * *"), class: 'CheckReceiveFolderJob')
+        Sidekiq::Cron::Job.create(name: "Receiver: Generate and send payload of current storage folder", cron: receiver_send_payload_cron, class: Receiver::SendPayloadJob.to_s)
+        Sidekiq::Cron::Job.create(name: "Receiver: Check for received files and put them into storage folder", cron: ENV.fetch("SYNCHRONIST_CHECK_RECEIVED_FILES_CRON", "* * * * *"), class: Receiver::CheckReceiveFolderJob.to_s)
       end
     end
     true

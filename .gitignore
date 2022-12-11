@@ -38,3 +38,6 @@ payload.synchronist
 /node_modules
 
 .DS_Store
+
+test/fixtures/data/receiver/storage/*
+!test/fixtures/data/receiver/storage/1.txt

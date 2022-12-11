@@ -24,9 +24,8 @@ class ConfigTest < ApplicationSystemTestCase
     fill_in "Storage Folder", with: "/data/mirrors/apt-mirror"
     fill_in "Receive Folder", with: "/mnt/smb/from-sender"
 
-    assert_difference -> { Sidekiq::Cron::Job.count }, +1 do
+    assert_difference -> { Sidekiq::Cron::Job.count }, +2 do
       click_on "Save"
-      sleep 1
     end
 
     assert_equal("receiver", Config.get!("mode"))

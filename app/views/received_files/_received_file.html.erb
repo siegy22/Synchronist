@@ -1,0 +1,16 @@
+<li class="list-group-item p-3 d-flex align-items-center">
+  <h4 class="m-0">
+    <%= received_file.path %>
+  </h4>
+  <span class="ml-4">
+    <b>
+      <%= number_to_human_size(received_file.size) %>
+    </b>
+  </span>
+
+  <span class="ms-auto">
+    <%= time_tag payload.created_at, title: payload.created_at do %>
+      Received <%= time_ago_in_words payload.created_at %> ago
+    <% end %>
+  </span>
+</li>

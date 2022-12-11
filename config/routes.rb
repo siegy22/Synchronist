@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root "dashboard#index"
 
   resources :syncs, only: [:index, :show]
+  resources :received_files, only: :index
   resource :config, only: [:edit, :update]
 
   namespace :sender do

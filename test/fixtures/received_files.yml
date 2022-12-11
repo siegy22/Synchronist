@@ -1,0 +1,7 @@
+one:
+  path: 1.txt
+  size: 420
+
+two:
+  path: 2.txt
+  size: 1234

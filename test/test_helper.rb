@@ -29,9 +29,12 @@ class ActiveSupport::TestCase
       FileUtils.touch(file, mtime: BASE_MTIME)
     end
     FileUtils.rm_f(Config.get!("receiver_payload_path"))
-    FileUtils.rm_rf(Config.get!("sender_send_folder"))
     FileUtils.rm_f(Config.get!("sender_payload_path"))
+    FileUtils.rm_rf(Config.get!("sender_send_folder"))
     FileUtils.mkdir_p(Config.get!("sender_send_folder"))
+    FileUtils.rm_rf(Config.get!("receiver_receive_folder"))
+    FileUtils.mkdir_p(Config.get!("receiver_receive_folder"))
+    FileUtils.rm_rf Dir.glob(Config.get!("receiver_storage_folder").join('**/*')).reject { |f| File.basename(f) == "1.txt" }
 
     Sidekiq::Cron::Job.destroy_all!
   end

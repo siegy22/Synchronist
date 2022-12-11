@@ -52,6 +52,13 @@
             <% end %>
           <% end %>
 
+          <% if Config.receiver? %>
+            <%= nav_link received_files_path do %>
+              <i class="bi bi-file-binary"></i>
+              <span>Files received</span>
+            <% end %>
+          <% end %>
+
           <%= nav_link Config.receiver? ? receiver_payloads_path : sender_payloads_path do %>
             <i class="bi bi-<%= Config.receiver? ? "send" : "inbox" %>"></i>
             <span>

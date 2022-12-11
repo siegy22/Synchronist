@@ -34,7 +34,7 @@
   </h4>
 
   <ul class="list-group file-list">
-    <% sync.sent_files.ordered.each do |sent_file| %>
+    <% sync.sent_files.ordered.limit(50).each do |sent_file| %>
       <li class="list-group-item d-flex align-items-center">
         <div class="filename" title="<%= sent_file.path %>">
           <%= sent_file.path %>

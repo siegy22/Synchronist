@@ -9,8 +9,8 @@
   </span>
 
   <span class="ms-auto">
-    <%= time_tag payload.created_at, title: payload.created_at do %>
-      Received <%= time_ago_in_words payload.created_at %> ago
+    <%= time_tag received_file.created_at, title: received_file.created_at do %>
+      Received <%= time_ago_in_words received_file.created_at %> ago
     <% end %>
   </span>
 </li>

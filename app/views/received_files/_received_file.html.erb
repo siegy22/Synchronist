@@ -1,16 +1,13 @@
 <li class="list-group-item p-3 d-flex align-items-center">
-  <h4 class="m-0">
+  <span class="filename" title="<%= received_file.path %>">
     <%= received_file.path %>
-  </h4>
-  <span class="ml-4">
-    <b>
+  </span>
+  <div class="ms-auto text-nowrap">
+    <b class="mr-2">
       <%= number_to_human_size(received_file.size) %>
     </b>
-  </span>
-
-  <span class="ms-auto">
     <%= time_tag received_file.created_at, title: received_file.created_at do %>
       Received <%= time_ago_in_words received_file.created_at %> ago
     <% end %>
-  </span>
+  </div>
 </li>

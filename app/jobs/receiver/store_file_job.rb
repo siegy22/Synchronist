@@ -6,10 +6,8 @@ module Receiver
         return Rails.logger.warn("Storage folder is not a valid directory, please check your configuration")
       end
 
-      Dir.chdir(Config.get!(:receiver_receive_folder)) do
-        ReceivedFile.create!(path: file_path, size: File.size(file_path))
-        `rsync -Rt --remove-source-files #{file_path} #{storage_folder}`
-      end
+      ReceivedFile.create!(path: file_path, size: File.size(Config.get!(:receiver_receive_folder).join(file_path)))
+      `rsync -t --remove-source-files #{Config.get!(:receiver_receive_folder).join(file_path)} #{storage_folder}`
     end
   end
 end

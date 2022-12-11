@@ -1,4 +1,3 @@
-<%= turbo_stream_from(sync) unless sync.finished? %>
 
 <li class="list-group-item p-3 d-flex align-items-center" id="<%= dom_id(sync) %>">
   <% if sync.errored? %>

@@ -1,7 +1,5 @@
 <% content_for :title, "Received files" %>
 
-<%= turbo_stream_from :received_files %>
-
 <ul class="list-group" id="<%= ReceivedFile.model_name.plural %>">
   <%= render @received_files %>
 </ul>

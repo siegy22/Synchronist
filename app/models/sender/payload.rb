@@ -6,7 +6,7 @@ module Sender
 
     has_one :sync
     has_one_attached :file
-    broadcasts inserts_by: :prepend
+    # broadcasts inserts_by: :prepend
 
     scope :ordered, -> { order(received_at: :desc) }
 

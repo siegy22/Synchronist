@@ -1,11 +1,11 @@
 one:
-  id: one
+  uid: one
   sent_at: 2022-12-09 20:01:33
   created_at: 2022-12-09 20:01:33
   updated_at: 2022-12-09 20:01:33
 
 two:
-  id: two
+  uid: two
   sent_at: 2022-12-09 20:01:33
   created_at: 2022-12-09 20:01:33
   updated_at: 2022-12-09 20:01:33

@@ -57,13 +57,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_165151) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "receiver_payloads", id: :string, force: :cascade do |t|
+  create_table "receiver_payloads", force: :cascade do |t|
+    t.string "uid", null: false
     t.datetime "sent_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "sender_payloads", id: :string, force: :cascade do |t|
+  create_table "sender_payloads", force: :cascade do |t|
+    t.string "uid", null: false
     t.datetime "received_at", null: false
     t.datetime "mtime", null: false
     t.datetime "created_at", null: false
@@ -88,7 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_165151) do
     t.datetime "updated_at", null: false
     t.datetime "errored_at"
     t.string "error_message"
-    t.string "sender_payload_id", null: false
+    t.bigint "sender_payload_id", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

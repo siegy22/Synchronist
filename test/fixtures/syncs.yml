@@ -2,21 +2,21 @@ pending:
   progress: 55.6
   bytes_transferred: 12032
   started_at: 2022-12-01 00:00:00
-  sender_payload_id: pending
+  sender_payload_id: 1
 
 done:
   progress: 100
   bytes_transferred: 60
   started_at: 2022-02-01 00:00:00
   finished_at: 2022-02-01 00:00:01
-  sender_payload_id: done
+  sender_payload_id: 2
 
 errored:
   progress: 76
   bytes_transferred: 120_000_000
   started_at: 2022-01-01 00:00:00
   errored_at: 2022-01-01 01:01:00
-  sender_payload_id: errored
+  sender_payload_id: 3
   error_message: |
     /Users/siegy/.rbenv/versions/3.1.2/lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/buffer.rb:317:in `set_key': rsa#set_key= is incompatible with OpenSSL 3.0 (OpenSSL::PKey::PKeyError)
     from /lib/ruby/gems/3.1.0/gems/net-ssh-5.2.0/lib/net/ssh/buffer.rb:317:in `read_keyblob'

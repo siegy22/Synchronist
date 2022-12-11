@@ -1,34 +1,47 @@
 module Receiver
   class Payload < ApplicationRecord
-    include UIDPrimaryKey
-
     self.table_name_prefix = "receiver_"
 
     has_one_attached :file
     # broadcasts inserts_by: :prepend
 
+    validates :sent_at, presence: true
     scope :ordered, -> { order(sent_at: :desc) }
+    before_create :generate_uid
 
-    def self.generate
-      Marshal.dump(
-        Dir.chdir(Config.get!(:receiver_storage_folder)) do
-          Dir.glob("**/*").select(&File.method(:file?)).each_with_object([]) do |file, memo|
-            memo << [file, File.mtime(file).utc.to_s]
-            memo
-          end
+    def self.generate(uid)
+      files = Dir.chdir(Config.get!(:receiver_storage_folder)) do
+        Dir.glob("**/*").select(&File.method(:file?)).each_with_object([]) do |file, memo|
+          memo << [file, File.mtime(file).utc.to_s]
+          memo
         end
+      end
+
+      Marshal.dump(
+        {
+          uid: uid,
+          files: files,
+        }
       )
     end
 
     def self.send!
       payload_path = Config.get!(:receiver_payload_path)
-      created = create(sent_at: Time.now)
+      created = create!(sent_at: Time.now)
+
+      File.write(payload_path, generate(created.uid), mode: "wb")
       created.file.attach(
-        io: StringIO.new(generate),
+        io: File.open(payload_path),
         filename: File.basename(payload_path)
       )
+    end
 
-      File.write(payload_path, generate)
+    def generate_uid
+      if Rails.env.test?
+        self.uid = :testing
+      else
+        self.uid = SecureRandom.hex(6)
+      end
     end
   end
 end

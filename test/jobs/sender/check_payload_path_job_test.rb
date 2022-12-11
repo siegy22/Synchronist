@@ -5,6 +5,7 @@ class Sender::CheckPayloadPathJobTest < ActiveSupport::TestCase
 
   setup do
     @payload_mtime = (Sender::Payload.ordered.first.mtime + 1.day).utc
+    File.write(Config.get!("sender_payload_path"), Marshal.dump({ uid: "testing", files: [] }), mode: "wb")
     FileUtils.touch(Config.get!("sender_payload_path"), mtime: @payload_mtime)
   end
 

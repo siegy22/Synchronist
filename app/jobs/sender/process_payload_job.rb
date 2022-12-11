@@ -24,7 +24,7 @@ module Sender
     def perform(sync, source_path, target_path)
       sync.start!
 
-      loaded_payload = sync.sender_payload.load
+      payload_files = sync.sender_payload.load[:files]
       sync.increment(:progress, PAYLOAD_LOAD_PROGRESS)
       sync.save
 
@@ -34,7 +34,7 @@ module Sender
         files_to_copy = source_files.each_with_object([]) do |file, memo|
           sync.increment(:progress, (1.0 / source_files_count * DIFF_PROGRESS))
           sync.save
-          memo << file unless loaded_payload.include?([file, File.mtime(file).utc.to_s])
+          memo << file unless payload_files.include?([file, File.mtime(file).utc.to_s])
           memo
         end
 

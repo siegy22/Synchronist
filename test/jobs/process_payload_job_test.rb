@@ -3,7 +3,7 @@ require "test_helper"
 class ProcessPayloadJobTest < ActiveJob::TestCase
   test "add 2.txt" do
     Sender::ProcessPayloadJob.perform_now(
-      sync_with_payload([["1.txt", BASE_MTIME_STR]]),
+      sync_with_payload({ "1.txt" => BASE_MTIME_TIMESTAMP }),
       Config.get!("sender_source_folder").join("simple_add"),
       Config.get!("sender_send_folder"),
     )
@@ -13,7 +13,7 @@ class ProcessPayloadJobTest < ActiveJob::TestCase
 
   test "outdated mtime - replace file" do
     Sender::ProcessPayloadJob.perform_now(
-      sync_with_payload([["1.txt", OUTDATED_MTIME_STR]]),
+      sync_with_payload({ "1.txt" => OUTDATED_MTIME_TIMESTAMP }),
       Config.get!("sender_source_folder").join("mtime_replace"),
       Config.get!("sender_send_folder"),
     )
@@ -23,10 +23,11 @@ class ProcessPayloadJobTest < ActiveJob::TestCase
 
   test "add/replace with subdirectories" do
     Sender::ProcessPayloadJob.perform_now(
-      sync_with_payload([
-                          ["sub/1/1.txt", BASE_MTIME_STR],
-                          ["sub/2/2.txt", OUTDATED_MTIME_STR],
-                        ]),
+      sync_with_payload(
+        {
+          "sub/1/1.txt" => BASE_MTIME_TIMESTAMP,
+          "sub/2/2.txt" => OUTDATED_MTIME_TIMESTAMP,
+        }),
       Config.get!("sender_source_folder").join("with_subdirectories"),
       Config.get!("sender_send_folder"),
     )
@@ -35,10 +36,10 @@ class ProcessPayloadJobTest < ActiveJob::TestCase
   end
 
   test "sync bytes transferred and progress" do
-    payload = [
-      ["sub/1/1.txt", BASE_MTIME_STR],
-      ["sub/2/2.txt", OUTDATED_MTIME_STR],
-    ]
+    payload = {
+      "sub/1/1.txt" => BASE_MTIME_TIMESTAMP,
+      "sub/2/2.txt" =>  OUTDATED_MTIME_TIMESTAMP,
+    }
 
     Sender::ProcessPayloadJob.perform_now(
       (sync = sync_with_payload(payload)),

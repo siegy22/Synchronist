@@ -16,9 +16,9 @@ class ActiveSupport::TestCase
   fixtures :all
 
   OUTDATED_MTIME = Time.parse("1990-01-01 13:00:00 UTC")
-  OUTDATED_MTIME_STR = OUTDATED_MTIME.utc.to_s
+  OUTDATED_MTIME_TIMESTAMP = OUTDATED_MTIME.to_i
   BASE_MTIME = Time.parse("2022-11-01 13:00:00 UTC")
-  BASE_MTIME_STR = BASE_MTIME.utc.to_s
+  BASE_MTIME_TIMESTAMP = BASE_MTIME.to_i
 
   setup do
     Dir.glob(Config.get!("sender_source_folder").join("**/*")) do |file|

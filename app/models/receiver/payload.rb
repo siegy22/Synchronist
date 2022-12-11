@@ -11,8 +11,8 @@ module Receiver
 
     def self.generate(uid)
       files = Dir.chdir(Config.get!(:receiver_storage_folder)) do
-        Dir.glob("**/*").select(&File.method(:file?)).each_with_object([]) do |file, memo|
-          memo << [file, File.mtime(file).utc.to_s]
+        Dir.glob("**/*").select(&File.method(:file?)).each_with_object({}) do |file, memo|
+          memo[file] = File.mtime(file).to_i
           memo
         end
       end

@@ -34,7 +34,8 @@ module Sender
         files_to_copy = source_files.each_with_object([]) do |file, memo|
           sync.increment(:progress, (1.0 / source_files_count * DIFF_PROGRESS))
           sync.save
-          memo << file unless payload_files.include?([file, File.mtime(file).utc.to_s])
+
+          memo << file if !payload_files.key?(file) || payload_files[file] < File.mtime(file).to_i
           memo
         end
 

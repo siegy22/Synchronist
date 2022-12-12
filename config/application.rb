@@ -21,5 +21,6 @@ module Synchronist
     config.i18n.locale = :en
 
     config.time_zone = ENV.fetch("RAILS_TIMEZONE", "Europe/Zurich")
+    config.version = "1.0.0.alpha"
   end
 end

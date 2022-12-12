@@ -49,6 +49,8 @@ module Sender
           sync.sent_files.create(path: file, size: file_size)
           sync.save
         end
+
+        sync.increment(:progress, COPYING_PROGRESS) if files_to_copy.empty?
       end
 
       sync.finish!

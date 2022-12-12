@@ -1,0 +1,24 @@
+<div class="row">
+  <%= render "dashboard/card", label: Config.get!(:sender_source_folder), text: number_to_human_size(@disk_usage), icon: 'sd-card' %>
+  <%= render "dashboard/card", label: "Sent files", text: @files_sent, icon: 'file-check' %>
+  <%= render "dashboard/card", label: "Sent data", text: number_to_human_size(@bytes_sent), icon: 'file-binary' %>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-6">
+    <ul class="list-group">
+      <%= render @latest_syncs %>
+    </ul>
+    <div class="text-center mt-1">
+      <%= link_to "See more…", syncs_path, class: "text-decoration-none" %>
+    </div>
+  </div>
+  <div class="col-12 col-md-6">
+    <ul class="list-group">
+      <%= render @latest_payloads %>
+    </ul>
+    <div class="text-center mt-1">
+      <%= link_to "See more…", sender_payloads_path, class: "text-decoration-none" %>
+    </div>
+  </div>
+</div>

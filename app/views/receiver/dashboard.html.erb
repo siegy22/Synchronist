@@ -1,0 +1,25 @@
+<div class="row">
+  <%= render "dashboard/card", label: Config.get!(:receiver_storage_folder), text: number_to_human_size(@disk_usage), icon: 'sd-card' %>
+  <%= render "dashboard/card", label: "Received files", text: @files_received, icon: 'file-check' %>
+  <%= render "dashboard/card", label: "Received size", text: number_to_human_size(@bytes_received), icon: 'file-binary' %>
+  <%= render "dashboard/card", label: "Synchronization cron", text: @sync_cron, icon: 'calendar-week' %>
+</div>
+
+<div class="row">
+  <div class="col-12 col-md-6">
+    <ul class="list-group">
+      <%= render @latest_received_files %>
+    </ul>
+    <div class="text-center mt-1">
+      <%= link_to "See more…", syncs_path, class: "text-decoration-none" %>
+    </div>
+  </div>
+  <div class="col-12 col-md-6">
+    <ul class="list-group">
+      <%= render @latest_payloads %>
+    </ul>
+    <div class="text-center mt-1">
+      <%= link_to "See more…", sender_payloads_path, class: "text-decoration-none" %>
+    </div>
+  </div>
+</div>

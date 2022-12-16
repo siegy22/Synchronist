@@ -1,3 +1,3 @@
 <% content_for :title, "Synchronization ##{@sync.id}" %>
 
-<%= render "syncs/sync_detail", sync: @sync %>
+<%= render "syncs/sync_detail", sync: @sync, sent_files: @sent_files %>

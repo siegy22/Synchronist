@@ -38,6 +38,26 @@ class SyncsTest < ApplicationSystemTestCase
     )
   end
 
+  test "filter files" do
+    visit sync_path(syncs(:done))
+
+    fill_in "filename", with: "1.tx"
+    find(:fillable_field, "filename").native.send_keys :enter
+    assert_file_list([["1.txt", "20 Bytes"]])
+
+    fill_in "filename", with: "no-exist-file"
+    find(:fillable_field, "filename").native.send_keys :enter
+    assert_file_list([])
+
+    click_on "Reset filter"
+    assert_file_list(
+      [
+        ["1.txt", "20 Bytes"],
+        ["2.txt", "40 Bytes"],
+      ]
+    )
+  end
+
   private
   def assert_file_list(expected)
     actual = []

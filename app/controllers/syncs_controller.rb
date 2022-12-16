@@ -5,5 +5,9 @@ class SyncsController < ApplicationController
 
   def show
     @sync = Sync.find(params[:id])
+    @sent_files = @sync.sent_files
+    if params.key?(:filename)
+      @sent_files = @sent_files.where("path ILIKE ?", "%#{params[:filename]}%")
+    end
   end
 end

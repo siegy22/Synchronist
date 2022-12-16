@@ -14,5 +14,16 @@ class Receiver::CheckReceiveFolderJobTest < ActiveJob::TestCase
     end
 
     assert_equal [], Dir.glob(Config.get!("receiver_receive_folder").join("**/*"))
+    assert_includes Dir.chdir(Config.get!("receiver_storage_folder")) { Dir.glob("**/*") }, "sample.zip"
+    assert_includes Dir.chdir(Config.get!("receiver_storage_folder")) { Dir.glob("**/*") }, "sample.pdf"
+  end
+
+  test "relay received files" do
+    Config.set!(name: "receiver_relay_mode", value: "1")
+    File.write(Config.get!("receiver_receive_folder").join("sample.pdf"), "this is a pdf")
+    Receiver::CheckReceiveFolderJob.perform_now
+    perform_enqueued_jobs
+    assert_includes Dir.chdir(Config.get!("receiver_storage_folder")) { Dir.glob("**/*") }, "sample.pdf"
+    assert_includes Dir.chdir(Config.get!("receiver_relay_folder")) { Dir.glob("**/*") }, "sample.pdf"
   end
 end

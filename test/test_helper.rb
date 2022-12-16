@@ -34,6 +34,8 @@ class ActiveSupport::TestCase
     FileUtils.mkdir_p(Config.get!("sender_send_folder"))
     FileUtils.rm_rf(Config.get!("receiver_receive_folder"))
     FileUtils.mkdir_p(Config.get!("receiver_receive_folder"))
+    FileUtils.rm_rf(Config.get!("receiver_relay_folder"))
+    FileUtils.mkdir_p(Config.get!("receiver_relay_folder"))
     FileUtils.rm_rf Dir.glob(Config.get!("receiver_storage_folder").join('**/*')).reject { |f| File.basename(f) == "1.txt" }
 
     Sidekiq::Cron::Job.destroy_all!

@@ -6,6 +6,7 @@ class ConfigForm
   validates :receiver_send_payload_cron, presence: true
   validates_presence_of(*Config::SENDER_CONFIGS, if: -> { mode == "sender" })
   validates_presence_of(*Config::RECEIVER_CONFIGS, if: -> { mode == "receiver" })
+  validates_presence_of(*Config::RELAY_CONFIGS, if: -> { mode == "receiver" && receiver_relay_mode.to_s == "1" })
   validate :validate_cron
 
   def receiver_send_payload_cron

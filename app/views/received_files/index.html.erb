@@ -1,5 +1,20 @@
+<% content_for :meta_title, "Received files" %>
+
 <% content_for :title do %>
   Received files <small class="text-muted h5"><%= ReceivedFile.count %> total</small>
+<% end %>
+<% content_for :title_additional do %>
+  <%= bootstrap_form_tag method: :get, data: { turbo: !Rails.env.test? } do |f| %>
+    <%= f.text_field :filename, value: params[:filename], hide_label: true, placeholder: "Search files" %>
+  <% end %>
+<% end %>
+
+<% if @received_files.empty? && params[:filename].present? %>
+  <div class="text-center">
+    <em>No files found containing <b><%= params[:filename] %></b></em>
+    <br />
+    <%= link_to "Reset filter", received_files_path %>
+  </div>
 <% end %>
 
 <ul class="list-group" id="<%= ReceivedFile.model_name.plural %>">

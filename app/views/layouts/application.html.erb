@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Synchronist - <%= yield :title %></title>
+    <title>Synchronist - <%= content_for?(:meta_title) ? content_for(:meta_title) : content_for(:title) %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -154,6 +154,7 @@
               <h1 class="h3 mb-0 text-gray-800">
                 <%= yield :title %>
               </h1>
+              <%= yield :title_additional %>
             </div>
 
             <%= yield %>

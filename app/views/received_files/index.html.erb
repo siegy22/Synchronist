@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  Received files <small class="text-muted h5"><%= @received_files.count %> total</small>
+  Received files <small class="text-muted h5"><%= ReceivedFile.count %> total</small>
 <% end %>
 
 <ul class="list-group" id="<%= ReceivedFile.model_name.plural %>">

@@ -1,6 +1,6 @@
 FROM ruby:alpine AS rb
 RUN apk update && apk add --no-cache postgresql-dev build-base libffi-dev nodejs rsync tzdata yarn
-COPY Gemfile* package.json yarn.lock .
+COPY Gemfile* package.json yarn.lock ./
 RUN yarn install
 RUN gem update --system && gem install bundler
 RUN bundle config frozen true \

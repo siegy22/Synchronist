@@ -1,0 +1,17 @@
+[Unit]
+Description=Synchronist mirroring tool
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+User=<service_user>
+
+WorkingDirectory=<working_directory>
+
+ExecStart=/usr/bin/env docker compose up -d
+ExecStop=/usr/bin/env docker compose down
+
+[Install]
+WantedBy=multi-user.target

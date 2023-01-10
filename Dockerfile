@@ -40,4 +40,5 @@ ENV RAILS_ENV=production \
 VOLUME /synchronist/storage
 
 ENTRYPOINT ["docker-entrypoint.sh"]
+EXPOSE 3000
 CMD ["rails", "server", "--binding", "0.0.0.0"]

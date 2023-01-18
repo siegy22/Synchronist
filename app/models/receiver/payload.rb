@@ -30,10 +30,12 @@ module Receiver
       created = create!(sent_at: Time.now)
 
       File.write(payload_path, generate(created.uid), mode: "wb")
-      created.file.attach(
-        io: File.open(payload_path),
-        filename: File.basename(payload_path)
-      )
+      File.open(payload_path, "r") do |f|
+        created.file.attach(
+          io: f,
+          filename: File.basename(payload_path)
+        )
+      end
     end
 
     def generate_uid

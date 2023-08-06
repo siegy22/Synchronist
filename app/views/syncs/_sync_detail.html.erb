@@ -46,6 +46,11 @@
         <%= link_to "Reset filter", sync_path(@sync) %>
       </div>
     <% end %>
+    <% if sync.running? %>
+      <div class="text-center">
+        <em>Files are only displayed once the synchronization is finished</em>
+      </div>
+    <% end %>
     <% sent_files.ordered.limit(50).each do |sent_file| %>
       <li class="list-group-item d-flex align-items-center">
         <div class="filename" title="<%= sent_file.path %>">

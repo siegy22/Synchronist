@@ -1,6 +1,6 @@
 class Sync < ApplicationRecord
-  # after_update_commit -> { broadcast_replace_later_to "sync_detail_#{id}", partial: "syncs/sync_detail" }
-  # broadcasts inserts_by: :prepend
+  after_update_commit -> { broadcast_replace_later_to "sync_detail_#{id}", partial: "syncs/sync_detail" }
+  broadcasts inserts_by: :prepend
 
   has_many :sent_files
   belongs_to :sender_payload, class_name: "Sender::Payload"
@@ -17,6 +17,10 @@ class Sync < ApplicationRecord
 
   def errored?
     errored_at
+  end
+
+  def running?
+    started_at.present? && (finished_at.blank? || errored_at.blank?)
   end
 
   def succeeded?

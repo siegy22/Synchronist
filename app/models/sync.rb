@@ -20,7 +20,7 @@ class Sync < ApplicationRecord
   end
 
   def running?
-    started_at.present? && (finished_at.blank? || errored_at.blank?)
+    started_at && finished_at.blank? && errored_at.blank?
   end
 
   def succeeded?

@@ -13,13 +13,24 @@ class BenchmarkTest < ActiveSupport::TestCase
       print "Generating sample directory (#{BENCHMARK_SOURCE_DEPTH} levels, #{BENCHMARK_SOURCE_FILES} files) in #{BENCHMARK_SOURCE_RELATIVE_PATH} ... "
       create_directories(BENCHMARK_SOURCE_PATH, BENCHMARK_SOURCE_DEPTH, BENCHMARK_SOURCE_FILES)
       puts "done"
-      FileUtils.rm_rf BENCHMARK_SEND_PATH
-      FileUtils.mkdir_p BENCHMARK_SEND_PATH
+    end
+    FileUtils.rm_rf BENCHMARK_SEND_PATH
+    FileUtils.mkdir_p BENCHMARK_SEND_PATH
+  end
+
+  test "benchmark payload generate" do
+    skip_unless_benchmarking
+
+    Benchmark.bm do |x|
+      x.report("Generate payload") do
+        Receiver::Payload.generate("1234", path: BENCHMARK_SOURCE_PATH)
+      end
     end
   end
 
   test "benchmark diffing" do
     skip_unless_benchmarking
+
     payload_files = Marshal.load(Receiver::Payload.generate("1234", path: BENCHMARK_SOURCE_PATH))[:files]
     Benchmark.bm do |x|
       x.report("Diff files") do
@@ -30,6 +41,7 @@ class BenchmarkTest < ActiveSupport::TestCase
 
   test "benchmark send" do
     skip_unless_benchmarking
+
     sync = Sync.create!(sender_payload: Sender::Payload.create!(uid: "1234", mtime: Time.now, received_at: Time.now))
     files = Marshal.load(Receiver::Payload.generate("1234", path: BENCHMARK_SOURCE_PATH))[:files].keys.first(BENCHMARK_SEND_SAMPLE_SIZE)
     Benchmark.bm do |x|

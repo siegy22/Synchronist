@@ -78,3 +78,11 @@ jobs:
         RAILS_ENV: test
       run: |
         bundle exec rails test:system
+    - name: Run benchmarks
+      env:
+        PGHOST: 127.0.0.1
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_ENV: test
+      run: |
+        bin/benchmark

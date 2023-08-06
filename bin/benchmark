@@ -1,0 +1,3 @@
+#!/bin/bash
+
+SYNCHRONIST_TEST_BENCHMARK=true bin/rails test test/models/benchmark_test.rb

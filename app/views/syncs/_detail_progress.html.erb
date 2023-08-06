@@ -1,0 +1,5 @@
+<div class="progress" id="detail_progress_<%= sync.id %>">
+  <div class="<%= sync_progress_classes(sync) %>" style="width: <%= sync.progress %>%" aria-valuenow="<%= sync.progress %>" aria-valuemin="0" aria-valuemax="100" role="progressbar">
+    <%= sync.progress.round %>%
+  </div>
+</div>

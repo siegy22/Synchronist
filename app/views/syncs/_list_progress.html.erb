@@ -1,0 +1,20 @@
+<% if sync.errored? %>
+  <div class="status-icon text-center text-danger" id="list_progress_<%= sync.id %>">
+    <i class="bi bi-exclamation" style="font-size: 3em"></i>
+  </div>
+<% elsif sync.succeeded? %>
+  <div class="status-icon text-center text-success" id="list_progress_<%= sync.id %>">
+    <i class="bi bi-check2" style="font-size: 3em"></i>
+  </div>
+<% else %>
+  <div class="pie-wrapper progress-<%= sync.progress.round %> style-2" id="list_progress_<%= sync.id %>">
+    <span class="label">
+      <%= sync.progress.round %><span class="smaller">%</span>
+    </span>
+    <div class="pie">
+      <div class="left-side half-circle"></div>
+      <div class="right-side half-circle"></div>
+    </div>
+    <div class="pie-shadow"></div>
+  </div>
+<% end %>

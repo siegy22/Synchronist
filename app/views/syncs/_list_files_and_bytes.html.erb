@@ -1,0 +1,5 @@
+<span class="ml-4" id="list_files_and_bytes_<%= sync.id %>">
+  <b>
+    <%= pluralize(sync.sent_files.count, "files") %> (<%= number_to_human_size(sync.bytes_transferred) %>)
+  </b>
+</span>

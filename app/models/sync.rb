@@ -1,5 +1,8 @@
 class Sync < ApplicationRecord
-  after_update_commit -> { broadcast_replace_later_to "sync_detail_#{id}", partial: "syncs/sync_detail" }
+  after_update_commit -> { broadcast_replace_later_to "list_progress_#{id}", partial: "syncs/list_progress", target: "list_progress_#{id}" }
+  after_update_commit -> { broadcast_replace_later_to "list_files_and_bytes_#{id}", partial: "syncs/list_files_and_bytes", target: "list_files_and_bytes_#{id}" }
+  after_update_commit -> { broadcast_replace_later_to "detail_progress_#{id}", partial: "syncs/detail_progress", target: "detail_progress_#{id}" }
+  after_update_commit -> { broadcast_replace_later_to "detail_files_and_bytes_#{id}", partial: "syncs/detail_files_and_bytes", target: "detail_files_and_bytes_#{id}" }
   broadcasts inserts_by: :prepend
 
   has_many :sent_files

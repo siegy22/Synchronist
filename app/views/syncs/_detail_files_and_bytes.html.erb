@@ -1,0 +1,4 @@
+<h4 class="mt-3" id="detail_files_and_bytes_<%= sync.id %>">
+  <%= pluralize(sync.sent_files.count, "file") %> transferred
+  <span class="h6 text-muted"><%= number_to_human_size(sync.bytes_transferred) %></span>
+</h4>

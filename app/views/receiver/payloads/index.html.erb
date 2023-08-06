@@ -1,4 +1,5 @@
 <% content_for :title, "Payloads" %>
+<%= turbo_stream_from :receiver_payloads %>
 
 <ul class="list-group" id="receiver_payloads">
   <%= render @payloads %>

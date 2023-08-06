@@ -1,4 +1,5 @@
 <% content_for :title, "Synchronizations" %>
+<%= turbo_stream_from :syncs %>
 
 <ul class="list-group" id="<%= Sync.model_name.plural %>">
   <%= render @syncs %>

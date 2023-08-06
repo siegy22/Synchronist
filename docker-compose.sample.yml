@@ -1,6 +1,6 @@
 services:
   synchronist: &synchronist
-    image: siegy22/synchronist
+    image: siegy22/synchronist:1.0.0.beta
     depends_on:
       - redis
       - postgres
@@ -24,6 +24,7 @@ services:
     image: redis
     volumes:
       - redis_data:/data
+    restart: always
   postgres:
     image: postgres
     environment:
@@ -32,6 +33,7 @@ services:
       POSTGRES_DB: synchronist
     volumes:
       - pg_data:/var/lib/postgresql/data
+    restart: always
 
 volumes:
   synchronist_storage:

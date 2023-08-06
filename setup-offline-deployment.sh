@@ -54,4 +54,6 @@ else
 fi
 
 echo "Loading all docker containers into local docker registry.. "
-docker load -i *.tar
+for tarfile in *.tar; do
+    docker load -i "$tarfile"
+done

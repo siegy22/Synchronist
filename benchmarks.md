@@ -67,3 +67,17 @@ p 15.747701  25.826298  85.225837 ( 38.947283)
        user     system      total        real
 p 16.490933  26.082348  86.025549 ( 40.376441)
 ```
+
+
+## Sending files
+
+### 1k
+
+Parallel:
+
+```
+                user     system      total        real
+Send files  0.377568   0.150736  11.477110 (  1.748968)
+```
+
+

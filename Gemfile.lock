@@ -211,7 +211,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    stimulus-rails (1.2.1)
+    stimulus-rails (1.2.2)
       railties (>= 6.0.0)
     thor (1.2.2)
     timeout (0.4.0)
@@ -262,7 +262,7 @@ DEPENDENCIES
   sidekiq (>= 7.0.8)
   sidekiq-cron
   sprockets-rails
-  stimulus-rails
+  stimulus-rails (>= 1.2.2)
   turbo-rails
   tzinfo-data
   web-console

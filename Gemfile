@@ -53,7 +53,7 @@ gem "bootstrap_form", ">= 5.2.0"
 gem "sidekiq", ">= 7.0.8"
 gem "sidekiq-cron"
 gem "fugit"
-gem "rails-i18n", ">= 7.0.7"
+gem "rails-i18n", ">= 7.0.8"
 gem "parallel"
 
 group :development, :test do

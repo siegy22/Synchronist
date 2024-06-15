@@ -74,7 +74,7 @@ GEM
       minitest (>= 5.1)
       mutex_m
       tzinfo (~> 2.0)
-    addressable (2.8.5)
+    addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
     base64 (0.1.1)
     bigdecimal (3.1.4)
@@ -85,11 +85,11 @@ GEM
       actionpack (>= 6.1)
       activemodel (>= 6.1)
     builder (3.2.4)
-    capybara (3.39.2)
+    capybara (3.40.0)
       addressable
       matrix
       mini_mime (>= 0.1.3)
-      nokogiri (~> 1.8)
+      nokogiri (~> 1.11)
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
@@ -149,20 +149,20 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.5.9)
-    nokogiri (1.15.4-x86_64-darwin)
+    nokogiri (1.16.6-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.15.4-x86_64-linux)
+    nokogiri (1.16.6-x86_64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
     pg (1.5.4)
     psych (5.1.1)
       stringio
-    public_suffix (5.0.3)
+    public_suffix (5.1.0)
     puma (6.4.0)
       nio4r (~> 2.0)
     raabro (1.4.0)
-    racc (1.7.1)
-    rack (3.0.8)
+    racc (1.8.0)
+    rack (3.1.3)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -209,7 +209,7 @@ GEM
       redis-client (>= 0.9.0)
     redis-client (0.17.0)
       connection_pool
-    regexp_parser (2.8.2)
+    regexp_parser (2.9.2)
     reline (0.3.9)
       io-console (~> 0.5)
     rexml (3.2.6)
@@ -272,7 +272,7 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bootstrap_form (>= 5.3.0)
-  capybara
+  capybara (>= 3.40.0)
   cssbundling-rails (>= 1.2.0)
   debug
   fugit
